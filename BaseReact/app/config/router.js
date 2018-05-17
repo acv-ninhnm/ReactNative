@@ -1,6 +1,7 @@
 import React from 'react';
 import { TabNavigator, StackNavigator } from 'react-navigation';
 import Home from '../screens/Home';
+import Chat from '../screens/Chat';
 
 export const HomeStack = StackNavigator ({
     Home: {
@@ -9,8 +10,15 @@ export const HomeStack = StackNavigator ({
             title: 'Home'
         }
     }
-},{
-    tabBarPosition: 'bottom'
+});
+
+export const ChatStack = StackNavigator ({
+    Chat: {
+        screen: Chat,
+        navigationOptions: {
+            title: 'Chat'
+        }
+    }
 });
 
 export const Tabs = TabNavigator({
@@ -18,6 +26,12 @@ export const Tabs = TabNavigator({
         screen: HomeStack,
         navigationOptions: {
             title: 'Home'
+        }
+    },
+    Chat: {
+        screen: ChatStack,
+        navigationOptions: {
+            title: 'Chat'
         }
     }
 },{
