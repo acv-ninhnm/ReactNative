@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 export default class Home extends Component {
     render() {
         console.disableYellowBox = true;
         return (
-            <Text> heelo </Text>
+            <View style = {{ flex: 1, backgroundColor: 'yellow' }}>
+
+            </View>
         )
     }
 }
