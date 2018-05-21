@@ -7,7 +7,7 @@ import Button from 'react-native-button';
 import list from '../screens/flatListData';
 
 
-var arrayChat = ["a","b","c"];
+var arrayChat = [];
 var e;
 
 class FlastListItem extends Component {
@@ -44,13 +44,15 @@ export default class Chat extends Component {
     _onPressSendText= () => {
         // push data server
         this.socket.emit("client-send-text", this.state.textChat);
+        arrayChat.push(this.state.textChat);
+        console.log(`array = + ${arrayChat}`);
         
         // this.array.setState(this.state.array.push(this.state.textChat));
     }
 
     addItemForArray(){
         const {arrayChat} = this.state;
-        arrayChat.unshift();
+        arrayChat;
     }
 
     render() {
@@ -80,8 +82,6 @@ export default class Chat extends Component {
                         onChangeText = {(text) => this.setState({textChat : text})}
                         value = {this.state.text}
                         >
-                        
-
                         </TextInput>
                     </View>
                 </View>
