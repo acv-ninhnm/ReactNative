@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View, TextInput, KeyboardAvoidingView, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import io from 'socket.io-client/dist/socket.io.js';
+// import io from 'socket.io-client/dist/socket.io.js';
+import io from 'socket.io-client';
 import { widthScreen, heightScreen, IMAGE_SEND } from '../constants/Constants';
 import Button from 'react-native-button';
 import list from '../screens/flatListData';
@@ -93,6 +94,7 @@ export default class Chat extends Component {
                     <View style={{ flex: 9, alignContent: 'flex-start' }}>
                         <TextInput style={{ flex: 1, padding: 10, borderWidth: 1, borderColor: 'gray' }}
                             placeholder='input text'
+                            underlineColorAndroid= "transparent"
                             onChangeText={(text) => this.setState({ textChat: text })}
                             value={this.state.text}
                         >

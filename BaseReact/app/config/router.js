@@ -4,6 +4,7 @@ import { Image, StyleSheet }  from 'react-native';
 import Home from '../screens/Home';
 import Chat from '../screens/Chat';
 import { NAVI_BACKGROUND } from '../constants/Constants';
+import TabBarComponent from './TabBarComponent';
 
 export const HomeStack = StackNavigator ({
     Home: {
@@ -71,5 +72,6 @@ export const Tabs = TabNavigator({
     tabBarOptions: {
         showIcon: true,
         showLabel: true
-    }
+    },
+    tabBarComponent: TabBarComponent
 });
