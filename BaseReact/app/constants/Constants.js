@@ -12,4 +12,5 @@ export const NAVI_BACKGROUND = "#ff0059";
 
 export const IMAGE_HOME = require('../resources/icon_home.png');
 export const IMAGE_CHAT = require('../resources/icon_chat.png');
+export const IMAGE_SEND = require('../resources/icon_send.png');
 

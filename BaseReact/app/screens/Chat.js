@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
-import { Text, View, TextInput, KeyboardAvoidingView, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { Text, View, TextInput, KeyboardAvoidingView, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import io from 'socket.io-client/dist/socket.io.js';
-import { widthScreen, heightScreen } from '../constants/Constants';
+import { widthScreen, heightScreen, IMAGE_SEND } from '../constants/Constants';
 import Button from 'react-native-button';
-
 import list from '../screens/flatListData';
 
-
-var arrayChat = [];
 var e;
 
 class FlastListItem extends Component {
     render() {
         return (
             <View style={{ flex: 1 }}>
+            {/* if (this.props.index %2 == 0) {
+                <View style={{flex: 1, backgroundColor: 'yellow'}}>
+                    
+                </View>
+            } else {
+                <View style={{ flex: 1, backgroundColor: 'red'}}>
+                    
+                </View>
+            } */}
                 <Text>{this.props.item}</Text>
                 {/* <Text>{this.props.item.foodDes}</Text> */}
             </View>
@@ -26,62 +32,71 @@ export default class Chat extends Component {
 
     constructor(props) {
         super(props);
-        this.socket = io("http://localhost:3000", { jsonp: false });
+        this.socket = io("http://192.168.3.126:3000", { jsonp: false });
         e = this;
         this.state = {
-            arrayChat: arrayChat,
+            arrayChat: [],
             textChat: ""
         }
-        
+
+    }
+
+    componentDidMount() {
         // receive data from server 
-        this.socket.on("server-send-text", function(data) {
+        this.socket.on("server-send-text", function (data) {
             e.setState({
-                // maunen: data
+                arrayChat: data
             });
         });
     }
 
-    _onPressSendText= () => {
+    _onPressSendText = () => {
         // push data server
+        // arrayChat.push(this.state.textChat);
         this.socket.emit("client-send-text", this.state.textChat);
-        arrayChat.push(this.state.textChat);
-        console.log(`array = + ${arrayChat}`);
         
-        // this.array.setState(this.state.array.push(this.state.textChat));
-    }
+        // this.setState({arrayChat: arrayChat});
+        // console.log(`text chat+ ${this.state.textChat}`);
+        // console.log(`array = + ${this.state.arrayChat}`);
 
-    addItemForArray(){
-        const {arrayChat} = this.state;
-        arrayChat;
+        // this.array.setState(this.state.array.push(this.state.textChat));
     }
 
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: 'gray' }}>
-                <View style={{ flex: 92 }}>
+            <View style={{ flex: 1 }}>
+                <View style={{ flex: 90 }}>
                     <FlatList
                         data={this.state.arrayChat}
-                        renderItem={({ item, index }) => { 
+                        renderItem={({ item, index }) => {
                             return (
-                                <FlastListItem item={item} index={index}></FlastListItem>
+                                <FlastListItem item={item} index = {index}>
+                                </FlastListItem>
                             );
                         }}
                     >
                     </FlatList>
 
                 </View>
-                <View style={{ flex: 8, flexDirection: 'row'}}>
-                    <TouchableOpacity onPress = { this._onPressSendText}>
-                        <View style= {{width: 50, height: 100, backgroundColor: 'red'}}>
-                            <Text style= {{ color: 'blue', textAlign: 'center', alignItems: 'center'}}>Send</Text>
-                        </View>
-                    </TouchableOpacity>
-                    
-                    <View style={{ flex: 8, alignItems: 'flex-start'}}>
-                        <TextInput style= {{flex: 1, backgroundColor: 'yellow', width: widthScreen, padding: 10}} 
-                        onChangeText = {(text) => this.setState({textChat : text})}
-                        value = {this.state.text}
+
+                <View style={{ flex: 10, flexDirection: 'row', borderRadius: 10, borderColor: 'black' }}>
+                    <View style={{ flex: 1 }}>
+                        <TouchableOpacity style={{ marginLeft: 7, flex: 1, marginTop: 0 }}
+                            onPress={this._onPressSendText}>
+                            <Image
+                                style={{ flex: 1 }}
+                                source={require('../resources/icon_send.png')}
+                            />
+                        </TouchableOpacity>
+                    </View>
+
+                    <View style={{ flex: 9, alignContent: 'flex-start' }}>
+                        <TextInput style={{ flex: 1, padding: 10, borderWidth: 1, borderColor: 'gray' }}
+                            placeholder='input text'
+                            onChangeText={(text) => this.setState({ textChat: text })}
+                            value={this.state.text}
                         >
+
                         </TextInput>
                     </View>
                 </View>
