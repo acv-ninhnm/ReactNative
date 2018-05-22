@@ -11,16 +11,7 @@ var e;
 class FlastListItem extends Component {
     render() {
         return (
-            <View style={{ flex: 1 }}>
-            {/* if (this.props.index %2 == 0) {
-                <View style={{flex: 1, backgroundColor: 'yellow'}}>
-                    
-                </View>
-            } else {
-                <View style={{ flex: 1, backgroundColor: 'red'}}>
-                    
-                </View>
-            } */}
+            <View style={{ flex: 1, backgroundColor: 'pink' }}>
                 <Text>{this.props.item}</Text>
                 {/* <Text>{this.props.item.foodDes}</Text> */}
             </View>
@@ -52,15 +43,7 @@ export default class Chat extends Component {
     }
 
     _onPressSendText = () => {
-        // push data server
-        // arrayChat.push(this.state.textChat);
         this.socket.emit("client-send-text", this.state.textChat);
-        
-        // this.setState({arrayChat: arrayChat});
-        // console.log(`text chat+ ${this.state.textChat}`);
-        // console.log(`array = + ${this.state.arrayChat}`);
-
-        // this.array.setState(this.state.array.push(this.state.textChat));
     }
 
     render() {
@@ -93,6 +76,7 @@ export default class Chat extends Component {
 
                     <View style={{ flex: 9, alignContent: 'flex-start' }}>
                         <TextInput style={{ flex: 1, padding: 10, borderWidth: 1, borderColor: 'gray' }}
+                            keyboardType='email-address'
                             placeholder='input text'
                             underlineColorAndroid= "transparent"
                             onChangeText={(text) => this.setState({ textChat: text })}
